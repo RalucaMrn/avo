@@ -1,4 +1,5 @@
 require_relative 'tools_manager'
+require_relative 'action'
 require_relative 'filter'
 require_relative 'filters/select_filter'
 require_relative 'filters/boolean_filter'

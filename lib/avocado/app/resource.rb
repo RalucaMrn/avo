@@ -1,3 +1,4 @@
+require_relative 'resource_actions'
 require_relative 'resource_fields'
 require_relative 'resource_filters'
 
@@ -96,6 +97,10 @@ module Avocado
 
       def get_filters
         self.class.get_filters
+      end
+
+      def get_actions
+        self.class.get_actions
       end
 
       def search

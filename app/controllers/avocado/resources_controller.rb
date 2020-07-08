@@ -1,4 +1,4 @@
-require_dependency "avocado/application_controller"
+require_dependency 'avocado/application_controller'
 
 module Avocado
   class ResourcesController < ApplicationController
@@ -89,9 +89,25 @@ module Avocado
     end
 
     def show
+      t = resource
+      pp = [resource, avocado_resource, @view]
+      hydrated_resource = Avocado::Resources::Resource.hydrate_resource(resource, avocado_resource, @view || :show)
+
       render json: {
-        resource: Avocado::Resources::Resource.hydrate_resource(resource, avocado_resource, @view || :show),
+        resource: hydrated_resource,
+        actions: actions,
       }
+    end
+
+    def actions
+      avocado_actions = avocado_resource.get_actions
+      actions = []
+
+      avocado_actions.each do |action|
+        actions.push(action.new.render_response)
+      end
+
+      avocado_actions
     end
 
     def edit
